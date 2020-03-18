@@ -16,6 +16,8 @@ jobs:
         git config --global user.name "kingthorin"
         git clone https://github.com/OWASP/wstg.git
         git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
+        echo "Base PWD"
+        pwd
         cd wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
@@ -25,15 +27,7 @@ jobs:
         rm -rf latest
         mkdir latest
         cp -R ../wstg/document latest
-        cd 
-        echo "Up One"
-        ls ../
-        echo "Up Two"
-        ls ../../
-        echo "Up Three"
-        ls ../../../
-        echo "Up Four"
-        ls ../../../../
+        cd latest
         for FILE in `find . -type f -name "*.md"`; do cat ../../../prepend.txt $FILE | sponge $FILE; done
         for README in `find . -type f -name README.md"`; do cp $README index.md; done
         git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
