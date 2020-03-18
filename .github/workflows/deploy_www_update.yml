@@ -25,7 +25,7 @@ jobs:
         rm -rf latest
         cp -R wstg/document latest
         cd latest
-        for FILE in `find . -type f -name "*.md"`; do cat ../../prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat ~/prepend.txt $FILE | sponge $FILE; done
         for README in `find . -type f -name README.md"`; do cp $README index.md; done
         git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
         git add .
