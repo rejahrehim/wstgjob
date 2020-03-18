@@ -18,9 +18,9 @@ jobs:
         git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
         echo "Base PWD"
         pwd
-        ls
+        ls -lha
         echo "Above Base"
-        ls ../
+        ls -lha ../
         cd wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
