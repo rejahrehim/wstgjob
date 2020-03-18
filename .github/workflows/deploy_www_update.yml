@@ -19,6 +19,8 @@ jobs:
         echo "Base PWD"
         pwd
         ls
+        echo "Above Base"
+        ls ../
         cd wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
