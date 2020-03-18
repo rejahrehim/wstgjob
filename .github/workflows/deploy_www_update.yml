@@ -9,18 +9,25 @@ jobs:
     if: github.actor == 'kingthorin'
     runs-on: ubuntu-latest
     steps:
+    - name: Setup
+      run: |
+        sudo apt-get update
+        sudo apt-get install moreutils
+    - name: Build Prepend File
+      run: |
+        echo "---" > prepend.txt
+        echo "layout: col-document" >> prepend.txt
+        echo "title: WSTG - Latest" >> prepend.txt
+        echo "tags: WSTG" >> prepend.txt
+        echo "---" >> prepend.txt
+        pwd
+        ls -lha
     - name: Checkout Repos and Build Feature Branch
       run: |
-        sudo apt-get update && sudo apt-get install moreutils
         git config --global user.email "kingthorin@users.noreply.github.com"
         git config --global user.name "kingthorin"
         git clone https://github.com/OWASP/wstg.git
         git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
-        echo "Base PWD"
-        pwd
-        ls -lha
-        echo "Above Base"
-        ls -lha ../
         cd wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
