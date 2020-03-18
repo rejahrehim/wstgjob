@@ -20,9 +20,6 @@ jobs:
         echo "title: WSTG - Latest" >> prepend.txt
         echo "tags: WSTG" >> prepend.txt
         echo "---" >> prepend.txt
-        pwd
-        ls -lha
-        BASE_DIR="$(pwd)"
     - name: Checkout Repos and Build Feature Branch
       run: |
         echo $BASE_DIR
@@ -40,7 +37,7 @@ jobs:
         mkdir latest
         cp -R ../wstg/document latest
         cd latest
-        for FILE in `find . -type f -name "*.md"`; do cat ../../../prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat /home/runner/work/wstgjob/wstgjob/prepend.txt $FILE | sponge $FILE; done
         for README in `find . -type f -name README.md"`; do cp $README index.md; done
         git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
         git add .
