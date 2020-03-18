@@ -1,0 +1,33 @@
+name: Deploy WSTG Content to Web
+
+on:
+  push:
+
+jobs:
+  create_pr:
+    name: Create Feature Branch
+    if: github.actor == 'kingthorin'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repos and Build Feature Branch
+      run: |
+        git config --global user.email "kingthorin@users.noreply.github.com"
+        git config --global user.name "kingthorin"
+        git clone https://github.com/OWASP/wstg.git
+        git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
+        cd wstg
+        SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
+        BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
+        SHORT_DATE="$(date +"%Y-%m-%d")"
+        cd ../www-project-web-security-testing-guide
+        git checkout -b $BRANCH_STAMP
+        cd ..
+        rm -rf latest
+        cp -R ../wstg/document latest
+        cd latest
+        for FILE in `find . -type f -name "*.md"`; do cat ../../prepend.txt $FILE | sponge $FILE; done
+        for README in `find . -type f -name README.md"`; do cp $README index.md; done
+        git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
+        git add .
+        git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
+        git push --set-upstream origin $BRANCH_STAMP
