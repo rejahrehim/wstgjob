@@ -42,5 +42,5 @@ jobs:
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
         git add .
-        git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
+        git commit -m "Publish Latest" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
