@@ -19,7 +19,6 @@ jobs:
         echo "layout: col-document" >> prepend.txt
         echo "title: WSTG - Latest" >> prepend.txt
         echo "tags: WSTG" >> prepend.txt
-        echo "stamp: $(date +"%Y%m%d%H%M%S")" >> prepend.txt
         echo "---" >> prepend.txt
         cat prepend.txt
     - name: Checkout Repos and Build Feature Branch
