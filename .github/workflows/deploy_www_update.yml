@@ -20,6 +20,8 @@ jobs:
         git clone https://github.com/OWASP/wstg.git
         git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
         git clone https://github.com/kingthorin/wstgjob.git
+        cd wstgjob
+        TMP_BASE="$(pwd)"
         cd wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
@@ -30,9 +32,9 @@ jobs:
         mkdir latest
         cp -R ../wstg/document/* ./latest
         cd latest
-        for FILE in `find . -type f -name "*.md"`; do cat ../../../wstgjob/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat $TMP_BASE/prepend.txt $FILE | sponge $FILE; done
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
-        find . -type d -not -name "images" -execdir cp -v ../../../wstgjob/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v $TMP_BASE/info.md {} \;
         git remote set-url origin https://kingthorin:${{ secrets.kingthorin_wstg_token }}@github.com/kingthorin/www-project-web-security-testing-guide.git
         git add .
         git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
