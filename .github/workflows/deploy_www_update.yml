@@ -19,11 +19,11 @@ jobs:
         echo "layout: col-document" >> prepend.txt
         echo "title: WSTG - Latest" >> prepend.txt
         echo "tags: WSTG" >> prepend.txt
+        echo "stamp: $(date +"%Y%m%d%H%M%S")" >> prepend.txt
         echo "---" >> prepend.txt
         cat prepend.txt
     - name: Checkout Repos and Build Feature Branch
       run: |
-        echo $BASE_DIR
         git config --global user.email "kingthorin@users.noreply.github.com"
         git config --global user.name "kingthorin"
         git clone https://github.com/OWASP/wstg.git
