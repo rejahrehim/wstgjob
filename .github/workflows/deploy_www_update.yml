@@ -22,7 +22,7 @@ jobs:
         git clone https://github.com/kingthorin/wstgjob.git
         cd wstgjob
         TMP_BASE="$(pwd)"
-        cd wstg
+        cd ../wstg
         SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
         SHORT_DATE="$(date +"%Y-%m-%d")"
