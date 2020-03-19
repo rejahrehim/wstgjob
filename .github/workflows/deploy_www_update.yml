@@ -36,7 +36,7 @@ jobs:
         git checkout -b $BRANCH_STAMP
         rm -rf latest
         mkdir latest
-        cp -R ../wstg/document/ latest
+        cp -R ../wstg/document/ ./latest
         cd latest
         for FILE in `find . -type f -name "*.md"`; do cat /home/runner/work/wstgjob/wstgjob/prepend.txt $FILE | sponge $FILE; done
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
